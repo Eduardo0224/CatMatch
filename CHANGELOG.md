@@ -7,12 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- CatUI v0.3.0 SPM dependency — design system package connected, ready for feature integration
+
 ### Planned for v1.0.0
 
 - **CatList & CatDetail** (SwiftUI) - Browse breeds with search, tap for detail
 - **Voting** (SwiftUI) - Tinder-style like/dislike on cat breeds
 - **VoteHistory** (UIKit) - Vote history with UICollectionView modern APIs
-- **CatUI integration** - Integrate CatUI v0.3.0 design system (SPM dependency)
 
 ---
 
