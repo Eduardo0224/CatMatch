@@ -1,0 +1,44 @@
+# Commit Message Template
+# Format: [type](scope): emoji title_in_english
+#
+# Example: [feat](CatUI): ✨ Add CatCardView component
+#
+# Types:
+#   feat:     New feature
+#   fix:      Bug fix
+#   docs:     Documentation changes
+#   style:    Code style changes (formatting, no logic change)
+#   refactor: Code refactoring
+#   test:     Adding or updating tests
+#   chore:    Build process or auxiliary tool changes
+#   perf:     Performance improvements
+#
+# Scopes:
+#   CatList    (CatList feature)
+#   CatDetail  (CatDetail feature)
+#   Voting     (Voting feature)
+#   VoteHistory (VoteHistory feature)
+#   CatUI      (design system)
+#   Core       (shared services/models)
+#   Config     (project configuration)
+#   Network    (networking layer)
+#   Persistence (data persistence)
+#
+# Emojis:
+#   ✨ New feature
+#   🐛 Bug fix
+#   📚 Documentation
+#   🎨 UI/Style
+#   ♻️  Refactor
+#   ✅ Tests
+#   🔧 Config/Chore
+#   ⚡️ Performance
+#   🚀 Release
+#   🎉 Initial commit
+#
+# [type](scope): emoji title_in_english
+#
+# Detailed description of changes:
+# - What changed
+# - Why it changed
+# - Any breaking changes or important notes
