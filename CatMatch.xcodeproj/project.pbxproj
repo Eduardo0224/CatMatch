@@ -12,12 +12,18 @@
 
 /* Begin PBXFileReference section */
 		D58AEF2B2FF154A800F26606 /* CatMatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CatMatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D58F61E22FF2AEA00062403F /* CatMatchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CatMatchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		D58AEF2D2FF154A800F26606 /* CatMatch */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = CatMatch;
+			sourceTree = "<group>";
+		};
+		D58F61E32FF2AEA00062403F /* CatMatchTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = CatMatchTests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -31,6 +37,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D58F61DF2FF2AEA00062403F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -38,6 +51,7 @@
 			isa = PBXGroup;
 			children = (
 				D58AEF2D2FF154A800F26606 /* CatMatch */,
+				D58F61E32FF2AEA00062403F /* CatMatchTests */,
 				D58AEF2C2FF154A800F26606 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -46,6 +60,7 @@
 			isa = PBXGroup;
 			children = (
 				D58AEF2B2FF154A800F26606 /* CatMatch.app */,
+				D58F61E22FF2AEA00062403F /* CatMatchTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -76,6 +91,28 @@
 			productReference = D58AEF2B2FF154A800F26606 /* CatMatch.app */;
 			productType = "com.apple.product-type.application";
 		};
+		D58F61E12FF2AEA00062403F /* CatMatchTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D58F61E62FF2AEA00062403F /* Build configuration list for PBXNativeTarget "CatMatchTests" */;
+			buildPhases = (
+				D58F61DE2FF2AEA00062403F /* Sources */,
+				D58F61DF2FF2AEA00062403F /* Frameworks */,
+				D58F61E02FF2AEA00062403F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				D58F61E32FF2AEA00062403F /* CatMatchTests */,
+			);
+			name = CatMatchTests;
+			packageProductDependencies = (
+			);
+			productName = CatMatchTests;
+			productReference = D58F61E22FF2AEA00062403F /* CatMatchTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -87,6 +124,9 @@
 				LastUpgradeCheck = 2660;
 				TargetAttributes = {
 					D58AEF2A2FF154A800F26606 = {
+						CreatedOnToolsVersion = 26.6;
+					};
+					D58F61E12FF2AEA00062403F = {
 						CreatedOnToolsVersion = 26.6;
 					};
 				};
@@ -109,6 +149,7 @@
 			projectRoot = "";
 			targets = (
 				D58AEF2A2FF154A800F26606 /* CatMatch */,
+				D58F61E12FF2AEA00062403F /* CatMatchTests */,
 			);
 		};
 /* End PBXProject section */
@@ -121,10 +162,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D58F61E02FF2AEA00062403F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D58AEF272FF154A800F26606 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D58F61DE2FF2AEA00062403F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -323,6 +378,48 @@
 			};
 			name = Release;
 		};
+		D58F61E72FF2AEA00062403F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = V8BCKJ57FF;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.eandrade.CatMatchTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 26.5;
+			};
+			name = Debug;
+		};
+		D58F61E82FF2AEA00062403F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = V8BCKJ57FF;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.eandrade.CatMatchTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 26.5;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -340,6 +437,15 @@
 			buildConfigurations = (
 				D58AEF372FF154A900F26606 /* Debug */,
 				D58AEF382FF154A900F26606 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D58F61E62FF2AEA00062403F /* Build configuration list for PBXNativeTarget "CatMatchTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D58F61E72FF2AEA00062403F /* Debug */,
+				D58F61E82FF2AEA00062403F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
