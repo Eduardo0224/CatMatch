@@ -6,9 +6,19 @@
 //
 
 import SwiftUI
+import CatUI
 
 @main
 struct CatMatchApp: App {
+
+    // MARK: - Initializers
+
+    init() {
+        CatFontRegistration.registerAll()
+    }
+
+    // MARK: - Body
+
     var body: some Scene {
         WindowGroup {
             ContentView()

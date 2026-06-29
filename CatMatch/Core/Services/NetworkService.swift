@@ -31,7 +31,9 @@ final class NetworkService: NetworkServiceProtocol {
 
     func get<T: Decodable>(endpoint: String, queryItems: [URLQueryItem] = []) async throws -> T {
         var components = URLComponents(string: "\(API.baseURL)\(endpoint)")
-        components?.queryItems = queryItems.isEmpty ? nil : queryItems
+        if !queryItems.isEmpty {
+            components?.queryItems = queryItems
+        }
 
         guard let url = components?.url else {
             throw NetworkError.invalidURL
@@ -67,13 +69,33 @@ final class NetworkService: NetworkServiceProtocol {
 
 // MARK: - NetworkError
 
-enum NetworkError: LocalizedError {
+enum NetworkError: LocalizedError, Equatable {
     case invalidURL
     case invalidResponse
     case httpError(statusCode: Int)
     case decodingError(Error)
     case unauthorized
     case rateLimited
+
+    // MARK: - Equatable
+
+    static func == (lhs: NetworkError, rhs: NetworkError) -> Bool {
+        switch (lhs, rhs) {
+        case (.invalidURL, .invalidURL),
+             (.invalidResponse, .invalidResponse),
+             (.unauthorized, .unauthorized),
+             (.rateLimited, .rateLimited):
+            true
+        case (.httpError(let lhsCode), .httpError(let rhsCode)):
+            lhsCode == rhsCode
+        case (.decodingError, .decodingError):
+            true
+        default:
+            false
+        }
+    }
+
+    // MARK: - LocalizedError
 
     var errorDescription: String? {
         switch self {
@@ -89,6 +111,19 @@ enum NetworkError: LocalizedError {
             "Invalid API key"
         case .rateLimited:
             "Too many requests — try again later"
+        }
+    }
+
+    var userMessage: String {
+        switch self {
+        case .invalidURL, .invalidResponse, .decodingError:
+            L10n.Error.generic
+        case .httpError(let statusCode):
+            statusCode == 401 ? L10n.Error.unauthorized : L10n.Error.generic
+        case .unauthorized:
+            L10n.Error.unauthorized
+        case .rateLimited:
+            L10n.Error.rateLimited
         }
     }
 }

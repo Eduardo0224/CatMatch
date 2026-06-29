@@ -40,6 +40,8 @@ enum L10n {
         static let origin = String(localized: .CatDetail.origin)
         static let lifeSpan = String(localized: .CatDetail.lifeSpan)
         static let weight = String(localized: .CatDetail.weight)
+        static let weightSuffix = String(localized: .CatDetail.weightSuffix)
+        static let lifeSpanSuffix = String(localized: .CatDetail.lifeSpanSuffix)
     }
 
     // MARK: - Voting
@@ -66,5 +68,13 @@ enum L10n {
         static let retry = String(localized: .General.retry)
         static let loading = String(localized: .General.loading)
         static let errorTitle = String(localized: .General.errorTitle)
+    }
+
+    // MARK: - Error
+
+    enum Error {
+        static let generic = String(localized: .Error.generic)
+        static let unauthorized = String(localized: .Error.unauthorized)
+        static let rateLimited = String(localized: .Error.rateLimited)
     }
 }
