@@ -1,0 +1,30 @@
+# Xcode user data
+**/xcuserdata/
+*.xcworkspace/xcuserdata/
+DerivedData/
+
+# Build artifacts
+build/
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Swift Package Manager
+.build/
+Packages/
+Package.resolved
+
+# CocoaPods
+Pods/
+
+# Secrets
+Secrets.xcconfig
+
+# Claude Code
+.claude/plans/
+.claude/sessions/
+.claude/scheduled_tasks.json
+
+# macOS
+.DS_Store
+Thumbs.db
