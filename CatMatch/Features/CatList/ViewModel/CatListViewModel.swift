@@ -48,6 +48,7 @@ final class CatListViewModel: CatListViewModelProtocol {
 
     func loadBreeds() async {
         guard !isLoading else { return }
+        guard breeds.isEmpty else { return }
         isLoading = true
         defer { isLoading = false }
         errorMessage = nil
