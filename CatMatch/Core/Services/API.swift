@@ -40,6 +40,6 @@ enum API {
 
     enum Constants {
         static let defaultPageSize = 20
-        static let maxPageSize = 100
+        static let maxPageSize = 40
     }
 }

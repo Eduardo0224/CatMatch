@@ -7,17 +7,20 @@
 
 import SwiftUI
 
+// MARK: - ContentView
+
 struct ContentView: View {
+
+    // MARK: - Body
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack {
+            CatListView()
         }
-        .padding()
     }
 }
+
+// MARK: - Preview
 
 #Preview {
     ContentView()
