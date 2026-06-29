@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		D58F5BBF2FF2A3780062403F /* CatUI in Frameworks */ = {isa = PBXBuildFile; productRef = D58F5BBE2FF2A3780062403F /* CatUI */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		D58AEF2B2FF154A800F26606 /* CatMatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CatMatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -23,6 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D58F5BBF2FF2A3780062403F /* CatUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +70,7 @@
 			);
 			name = CatMatch;
 			packageProductDependencies = (
+				D58F5BBE2FF2A3780062403F /* CatUI */,
 			);
 			productName = CatMatch;
 			productReference = D58AEF2B2FF154A800F26606 /* CatMatch.app */;
@@ -94,6 +100,9 @@
 			);
 			mainGroup = D58AEF222FF154A800F26606;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				D58F5BBD2FF2A3780062403F /* XCRemoteSwiftPackageReference "CatUI" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = D58AEF2C2FF154A800F26606 /* Products */;
 			projectDirPath = "";
@@ -336,6 +345,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D58F5BBD2FF2A3780062403F /* XCRemoteSwiftPackageReference "CatUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Eduardo0224/CatUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.3.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D58F5BBE2FF2A3780062403F /* CatUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D58F5BBD2FF2A3780062403F /* XCRemoteSwiftPackageReference "CatUI" */;
+			productName = CatUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D58AEF232FF154A800F26606 /* Project object */;
 }
