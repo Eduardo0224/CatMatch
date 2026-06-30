@@ -434,8 +434,9 @@ git push origin develop
 - ✅ `develop` branch created and pushed
 - ✅ Commit template configured
 - ✅ Initial commit with project setup
-- ✅ Completed: `feature/cat-list` — CatList & CatDetail features with 32 tests
-- 🔄 Next: `feature/voting` — Voting (SwiftUI) with like/dislike and SwiftData
+- ✅ Completed: `feature/cat-list` — CatList & CatDetail features
+- ✅ Completed: `feature/voting` — Voting (SwiftUI) with like/dislike and SwiftData
+- 🔄 Next: `feature/vote-history` — VoteHistory (UIKit) with UICollectionView modern APIs
 
 ---
 

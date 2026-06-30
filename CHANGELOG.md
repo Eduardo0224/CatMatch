@@ -9,8 +9,43 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Planned for v1.0.0
 
-- **Voting** (SwiftUI) - Tinder-style like/dislike on cat breeds
 - **VoteHistory** (UIKit) - Vote history with UICollectionView modern APIs
+
+---
+
+## [0.3.0] - 2026-06-29
+
+### Added
+
+- **Voting feature** (SwiftUI) — Tinder-style horizontal card voting with SwiftData persistence
+  - Horizontal `ScrollView` with `.viewAligned` snap-to-card, peek effect, and `scrollTransition`
+  - `VotingViewModel`: `@Observable @MainActor` with breed queue from `BreedStore`, like/dislike advancing with `withAnimation(.snappy)`, SwiftData persistence via `saveVote()`
+  - `VotingView`: 4-state UI (loading/error/empty/voting) with `CatButton` like/dislike
+  - `VoteCardView`: Portrait card (1:1.4 ratio) with `frame(width:height:)` fixed dimensions, shadow, rounded corners
+  - `Vote` model: SwiftData `@Model` with `VoteType` enum (like/dislike)
+  - `CatMatchApp`: `.modelContainer(for: Vote.self)` for SwiftData
+  - `ContentView`: `TabView` with Breeds + Vote tabs
+- **BreedStore** (Core) — Shared `@MainActor @Observable` store eliminating duplicate `/breeds` requests
+  - `BreedStoreProtocol` + `MockBreedStore` for DI in previews and tests
+  - `loadIfNeeded()` idempotent, `withTaskGroup` for parallel image fetch
+  - Captured Sendable `network` in task group closures (no Swift 6 warnings)
+  - `CatListViewModel` refactored to use `BreedStore` for breed data
+- **Voting.xcstrings**: title, like, dislike, empty keys (en + es)
+
+### Changed
+
+- **CatListViewModel**: Refactored to accept `BreedStore` for breed loading; `CatListInteractor` retained for search
+- **CatDetailView**: Removed "Inku pattern" comments; `@MainActor` on `BreedStore` for concurrency safety
+- **NetworkService**: Fixed query params embedded in endpoint strings being stripped by empty `queryItems`
+- **NetworkError**: Added `Equatable` conformance for test assertions
+
+### Tests (45 tests)
+
+- **Voting ViewModel** (12): loadData, likeBreed/dislikeBreed advancement, setModelContext with in-memory store, retry, computed properties
+- **CatList ViewModel** (14): Updated for `BreedStore` injection
+- **CatList Interactor** (7): fetchBreedsWithImages, search, fetchImage
+- **CatDetail ViewModel** (10): preloadedImage, network error, computed props
+- **CatDetail Interactor** (3): fetchImage tests
 
 ---
 

@@ -47,8 +47,8 @@
 
 ### Mandatory Features (from technical test)
 
-1. ⬜ Voting screen with like/dislike for cat breeds
-2. ⬜ Save votes locally with date, breed name, and vote type
+1. ✅ Voting screen with like/dislike for cat breeds
+2. ✅ Save votes locally with date, breed name, and vote type
 3. ⬜ View voting history (UIKit implementation)
 4. ✅ Cat breed list with images
 5. ✅ Breed detail view (tap from list)
@@ -84,7 +84,7 @@
 
 ---
 
-### Phase 2: v0.3.0 - Voting (SwiftUI)
+### Phase 2: v0.3.0 - Voting (SwiftUI) ✅
 
 #### Feature: Voting
 **Framework**: SwiftUI
