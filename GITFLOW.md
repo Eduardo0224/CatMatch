@@ -436,7 +436,8 @@ git push origin develop
 - ✅ Initial commit with project setup
 - ✅ Completed: `feature/cat-list` — CatList & CatDetail features
 - ✅ Completed: `feature/voting` — Voting (SwiftUI) with like/dislike and SwiftData
-- 🔄 Next: `feature/vote-history` — VoteHistory (UIKit) with UICollectionView modern APIs
+- ✅ Completed: `feature/vote-history` — VoteHistory (UIKit) with UICollectionView modern APIs
+- 🔄 Next: `feature/cat-ui-polish` — CatUI package integration, accessibility, and MVP polish
 
 ---
 

@@ -9,7 +9,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Planned for v1.0.0
 
-- **VoteHistory** (UIKit) - Vote history with UICollectionView modern APIs
+- Accessibility, UI tests, final polish for MVP release
+
+---
+
+## [0.4.0] - 2026-06-30
+
+### Added
+
+- **VoteHistory feature** (UIKit) — Vote history with modern UICollectionView APIs
+  - `VoteHistoryViewController`: `UICollectionViewDiffableDataSource<Section, Vote.ID>` with `UICollectionViewCompositionalLayout.list(.grouped)`
+  - `UISegmentedControl` filter (All / Likes / Dislikes) embedded in `navigationItem.titleView`
+  - Swipe-to-delete with `UIContextualAction` and destructive style
+  - `UIBackgroundConfiguration.clear()` for cells, CatUI design tokens for backgrounds
+  - `VoteHistoryRepresentable`: `UIViewControllerRepresentable` wrapping a `UINavigationController`
+  - `VoteHistoryViewModel`: `@Observable @MainActor` with `latestVotesByBreed` deduplication — one vote per breed, most recent determines status
+  - `TabView` integration via `Tab()` API with `@State` ownership in `ContentView`
+  - Empty state with `L10n.VoteHistory.empty` message
+- **Voting upsert** — `saveVote()` now fetches existing vote by `breedId` and updates type/date instead of always inserting; guarantees one vote per breed
+- **DiffableDataSource fix** — `snapshot.reconfigureItems()` forces cell content refresh on upsert where `Vote.ID` stays the same but vote type changes (like ↔ dislike)
+- **VoteHistory localizations** — filter labels, title, empty state (en + es)
+
+### Tests (14 tests)
+
+- **VoteHistory ViewModel** (14): loadVotes (all/empty), filteredVoteIDs (all/likes/dislikes), setFilter, deleteVote (success/unknown ID), vote(for:), isEmpty (true/false), setModelContext
+- In-memory `ModelConfiguration` with `ModelContainer` stored as property to prevent deallocation
 
 ---
 
@@ -138,9 +162,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Planned Versions
 
-- **0.2.0**: CatList & CatDetail (SwiftUI) - Breed browsing with search and detail
-- **0.3.0**: Voting (SwiftUI) - Tinder-style like/dislike with SwiftData
-- **0.4.0**: VoteHistory (UIKit) - UICollectionView + DiffableDataSource + CompositionalLayout
+- **0.2.0**: CatList & CatDetail (SwiftUI) - Breed browsing with search and detail ✅
+- **0.3.0**: Voting (SwiftUI) - Tinder-style like/dislike with SwiftData ✅
+- **0.4.0**: VoteHistory (UIKit) - UICollectionView + DiffableDataSource + CompositionalLayout ✅
 - **1.0.0**: MVP Release - Integration, accessibility, UI tests, polish
 
 ### Change Categories
