@@ -1,0 +1,46 @@
+{
+  "fill" : {
+    "automatic-gradient" : "display-p3:0.98486,0.94189,0.93799,1.00000",
+    "orientation" : {
+      "start" : {
+        "x" : 0.5,
+        "y" : 0
+      },
+      "stop" : {
+        "x" : 0.5,
+        "y" : 0.7
+      }
+    }
+  },
+  "groups" : [
+    {
+      "layers" : [
+        {
+          "glass" : true,
+          "image-name" : "icon_front.png",
+          "name" : "icon_front",
+          "position" : {
+            "scale" : 0.75,
+            "translation-in-points" : [
+              0.75,
+              8.25
+            ]
+          }
+        }
+      ],
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.5
+      },
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.5
+      }
+    }
+  ],
+  "supported-platforms" : {
+    "squares" : [
+      "iOS"
+    ]
+  }
+}
