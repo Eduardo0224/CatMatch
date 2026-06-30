@@ -434,7 +434,10 @@ git push origin develop
 - ✅ `develop` branch created and pushed
 - ✅ Commit template configured
 - ✅ Initial commit with project setup
-- 🔄 Current: `feature/cat-ui-integration` — integrate CatUI v0.3.0 SPM package
+- ✅ Completed: `feature/cat-list` — CatList & CatDetail features
+- ✅ Completed: `feature/voting` — Voting (SwiftUI) with like/dislike and SwiftData
+- ✅ Completed: `feature/vote-history` — VoteHistory (UIKit) with UICollectionView modern APIs
+- 🔄 Next: `feature/cat-ui-polish` — CatUI package integration, accessibility, and MVP polish
 
 ---
 

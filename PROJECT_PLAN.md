@@ -49,7 +49,7 @@
 
 1. ✅ Voting screen with like/dislike for cat breeds
 2. ✅ Save votes locally with date, breed name, and vote type
-3. ✅ View voting history (UIKit implementation)
+3. ⬜ View voting history (UIKit implementation)
 4. ✅ Cat breed list with images
 5. ✅ Breed detail view (tap from list)
 
@@ -57,7 +57,7 @@
 
 ## Development Phases
 
-### Phase 1: v0.2.0 - CatList + CatDetail (SwiftUI)
+### Phase 1: v0.2.0 - CatList + CatDetail (SwiftUI) ✅
 
 #### Feature: CatList & CatDetail
 **Framework**: SwiftUI
@@ -84,7 +84,7 @@
 
 ---
 
-### Phase 2: v0.3.0 - Voting (SwiftUI)
+### Phase 2: v0.3.0 - Voting (SwiftUI) ✅
 
 #### Feature: Voting
 **Framework**: SwiftUI
@@ -108,7 +108,7 @@
 
 ---
 
-### Phase 3: v0.4.0 - VoteHistory (UIKit)
+### Phase 3: v0.4.0 - VoteHistory (UIKit) ✅ COMPLETED (2026-06-30)
 
 #### Feature: VoteHistory
 **Framework**: UIKit (via UIViewRepresentable)

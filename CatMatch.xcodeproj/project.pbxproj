@@ -6,14 +6,49 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		D5FDD55C2FF2C01200FD885D /* CatUI in Frameworks */ = {isa = PBXBuildFile; productRef = D58755FB2FF2BD2F009261BE /* CatUI */; };
+		D5FDD55D2FF2C01200FD885D /* CatUI in Frameworks */ = {isa = PBXBuildFile; productRef = D58755FB2FF2BD2F009261BE /* CatUI */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D58451DB2FF30C6B008EE747 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D58AEF232FF154A800F26606 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D58AEF2A2FF154A800F26606;
+			remoteInfo = CatMatch;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		D58AEF2B2FF154A800F26606 /* CatMatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CatMatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D58F61E22FF2AEA00062403F /* CatMatchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CatMatchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5FFF0012FF2BEEF009261BE /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		D5FFF0022FF2BEEF009261BE /* Exceptions for "CatMatch" folder in "CatMatch" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = D58AEF2A2FF154A800F26606 /* CatMatch */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		D58AEF2D2FF154A800F26606 /* CatMatch */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				D5FFF0022FF2BEEF009261BE /* Exceptions for "CatMatch" folder in "CatMatch" target */,
+			);
 			path = CatMatch;
+			sourceTree = "<group>";
+		};
+		D58F61E32FF2AEA00062403F /* CatMatchTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = CatMatchTests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -23,6 +58,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5FDD55C2FF2C01200FD885D /* CatUI in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D58F61DF2FF2AEA00062403F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D5FDD55D2FF2C01200FD885D /* CatUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -33,7 +77,9 @@
 			isa = PBXGroup;
 			children = (
 				D58AEF2D2FF154A800F26606 /* CatMatch */,
+				D58F61E32FF2AEA00062403F /* CatMatchTests */,
 				D58AEF2C2FF154A800F26606 /* Products */,
+				D5FFF0012FF2BEEF009261BE /* Secrets.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -41,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				D58AEF2B2FF154A800F26606 /* CatMatch.app */,
+				D58F61E22FF2AEA00062403F /* CatMatchTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -65,10 +112,35 @@
 			);
 			name = CatMatch;
 			packageProductDependencies = (
+				D58755FB2FF2BD2F009261BE /* CatUI */,
 			);
 			productName = CatMatch;
 			productReference = D58AEF2B2FF154A800F26606 /* CatMatch.app */;
 			productType = "com.apple.product-type.application";
+		};
+		D58F61E12FF2AEA00062403F /* CatMatchTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D58F61E62FF2AEA00062403F /* Build configuration list for PBXNativeTarget "CatMatchTests" */;
+			buildPhases = (
+				D58F61DE2FF2AEA00062403F /* Sources */,
+				D58F61DF2FF2AEA00062403F /* Frameworks */,
+				D58F61E02FF2AEA00062403F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D5FFF0102FF30001009261BE /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				D58F61E32FF2AEA00062403F /* CatMatchTests */,
+			);
+			name = CatMatchTests;
+			packageProductDependencies = (
+				D58755FB2FF2BD2F009261BE /* CatUI */,
+			);
+			productName = CatMatchTests;
+			productReference = D58F61E22FF2AEA00062403F /* CatMatchTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -83,6 +155,9 @@
 					D58AEF2A2FF154A800F26606 = {
 						CreatedOnToolsVersion = 26.6;
 					};
+					D58F61E12FF2AEA00062403F = {
+						CreatedOnToolsVersion = 26.6;
+					};
 				};
 			};
 			buildConfigurationList = D58AEF262FF154A800F26606 /* Build configuration list for PBXProject "CatMatch" */;
@@ -94,18 +169,29 @@
 			);
 			mainGroup = D58AEF222FF154A800F26606;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				D58755F92FF2BD2F009261BE /* XCRemoteSwiftPackageReference "CatUI" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = D58AEF2C2FF154A800F26606 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				D58AEF2A2FF154A800F26606 /* CatMatch */,
+				D58F61E12FF2AEA00062403F /* CatMatchTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		D58AEF292FF154A800F26606 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D58F61E02FF2AEA00062403F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -122,11 +208,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D58F61DE2FF2AEA00062403F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D5FFF0102FF30001009261BE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D58AEF2A2FF154A800F26606 /* CatMatch */;
+			targetProxy = D58451DB2FF30C6B008EE747 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		D58AEF342FF154A900F26606 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D5FFF0012FF2BEEF009261BE /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -191,6 +293,7 @@
 		};
 		D58AEF352FF154A900F26606 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D5FFF0012FF2BEEF009261BE /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -249,13 +352,15 @@
 		D58AEF372FF154A900F26606 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = catmatch;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = V8BCKJ57FF;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CatMatch/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = CatMatch;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -270,6 +375,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.eandrade.CatMatch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = nonisolated;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -283,13 +392,15 @@
 		D58AEF382FF154A900F26606 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = catmatch;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = V8BCKJ57FF;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CatMatch/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = CatMatch;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -304,6 +415,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.eandrade.CatMatch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = nonisolated;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -311,6 +426,52 @@
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		D58F61E72FF2AEA00062403F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = V8BCKJ57FF;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.eandrade.CatMatchTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CatMatch.app/CatMatch";
+			};
+			name = Debug;
+		};
+		D58F61E82FF2AEA00062403F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = V8BCKJ57FF;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.eandrade.CatMatchTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CatMatch.app/CatMatch";
 			};
 			name = Release;
 		};
@@ -335,7 +496,35 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		D58F61E62FF2AEA00062403F /* Build configuration list for PBXNativeTarget "CatMatchTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D58F61E72FF2AEA00062403F /* Debug */,
+				D58F61E82FF2AEA00062403F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D58755F92FF2BD2F009261BE /* XCRemoteSwiftPackageReference "CatUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Eduardo0224/CatUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.3.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D58755FB2FF2BD2F009261BE /* CatUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D58755F92FF2BD2F009261BE /* XCRemoteSwiftPackageReference "CatUI" */;
+			productName = CatUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D58AEF232FF154A800F26606 /* Project object */;
 }

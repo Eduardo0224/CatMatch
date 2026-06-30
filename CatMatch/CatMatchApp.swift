@@ -6,12 +6,24 @@
 //
 
 import SwiftUI
+import SwiftData
+import CatUI
 
 @main
 struct CatMatchApp: App {
+
+    // MARK: - Initializers
+
+    init() {
+        CatFontRegistration.registerAll()
+    }
+
+    // MARK: - Body
+
     var body: some Scene {
         WindowGroup {
             ContentView()
         }
+        .modelContainer(for: Vote.self)
     }
 }
