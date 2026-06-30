@@ -19,10 +19,10 @@ final class CatListViewModel: CatListViewModelProtocol {
     private let interactor: CatListInteractorProtocol
 
     @ObservationIgnored
-    private var searchTask: Task<Void, Never>?
+    private let breedStore: any BreedStoreProtocol
 
     @ObservationIgnored
-    private var cachedBreeds: [CatBreed] = []
+    private var searchTask: Task<Void, Never>?
 
     // MARK: - States
 
@@ -36,47 +36,34 @@ final class CatListViewModel: CatListViewModelProtocol {
 
     // MARK: - Initializers
 
-    init(interactor: CatListInteractorProtocol) {
+    init(interactor: CatListInteractorProtocol, breedStore: any BreedStoreProtocol) {
         self.interactor = interactor
+        self.breedStore = breedStore
     }
 
     // MARK: - Functions
 
     func image(for breed: CatBreed) -> CatImage? {
-        breedImages[breed.id]
+        breedStore.image(for: breed)
     }
 
     func loadBreeds() async {
-        guard !isLoading else { return }
-        guard breeds.isEmpty else { return }
-        isLoading = true
-        defer { isLoading = false }
-        errorMessage = nil
-
-        do {
-            let results = try await interactor.fetchBreedsWithImages()
-            cachedBreeds = results.map(\.breed)
-            breeds = cachedBreeds
-            breedImages = results.reduce(into: [:]) { dict, result in
-                if let image = result.image {
-                    dict[result.breed.id] = image
-                }
-            }
-        } catch is CancellationError {
-            // Task cancelled by view disappearing — not an error
-            errorMessage = nil
-        } catch {
-            handleError(error)
-        }
+        await breedStore.loadIfNeeded()
+        syncFromStore()
     }
 
     func retry() {
-        Task { [weak self] in
-            await self?.loadBreeds()
-        }
+        breedStore.retry()
     }
 
     // MARK: - Private Functions
+
+    private func syncFromStore() {
+        breeds = breedStore.breeds
+        breedImages = breedStore.breedImages
+        isLoading = breedStore.isLoading
+        errorMessage = breedStore.errorMessage
+    }
 
     private func handleError(_ error: Error) {
         if let networkError = error as? NetworkError {
@@ -91,7 +78,7 @@ final class CatListViewModel: CatListViewModelProtocol {
         searchTask?.cancel()
 
         guard !searchQuery.isEmpty else {
-            breeds = cachedBreeds
+            breeds = breedStore.breeds
             errorMessage = nil
             return
         }

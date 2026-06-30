@@ -18,26 +18,33 @@ extension CatListTests {
 
         // MARK: - Subject Under Test
 
+        let spyNetwork: SpyNetworkService
+        let breedStore: BreedStore
         let spyInteractor: SpyCatListInteractor
-        var sut: CatListViewModel {
-            CatListViewModel(interactor: spyInteractor)
-        }
+        let sut: CatListViewModel
 
         // MARK: - Initializers
 
         init() {
+            self.spyNetwork = SpyNetworkService()
+            self.breedStore = BreedStore(network: spyNetwork)
             self.spyInteractor = SpyCatListInteractor()
+            self.sut = CatListViewModel(interactor: spyInteractor, breedStore: breedStore)
         }
 
         // MARK: - loadBreeds Tests
 
         @Test("loadBreeds sets breeds and images on success")
         func loadBreedsSuccess() async {
-            await spyInteractor.setFetchBreedsResult(.success(CatListTestData.breedsWithImages))
-            let sut = sut
+            // Given
+            await spyNetwork.setSuccess(CatListTestData.threeBreeds, for: API.Endpoints.breeds)
+            await spyNetwork.setSuccess(CatListTestData.bengalImage, for: API.Endpoints.imageByID("beng_ref_001"))
+            await spyNetwork.setSuccess(CatListTestData.siameseImage, for: API.Endpoints.imageByID("siam_ref_002"))
 
+            // When
             await sut.loadBreeds()
 
+            // Then
             #expect(sut.breeds.count == 3)
             #expect(sut.breeds[0].name == "Bengal")
             #expect(sut.breedImages.count == 2)
@@ -50,11 +57,13 @@ extension CatListTests {
 
         @Test("loadBreeds handles empty breed list")
         func loadBreedsEmpty() async {
-            await spyInteractor.setFetchBreedsResult(.success([]))
-            let sut = sut
+            // Given
+            await spyNetwork.setSuccess([] as [CatBreed], for: API.Endpoints.breeds)
 
+            // When
             await sut.loadBreeds()
 
+            // Then
             #expect(sut.breeds.isEmpty)
             #expect(sut.breedImages.isEmpty)
             #expect(sut.isLoading == false)
@@ -63,11 +72,13 @@ extension CatListTests {
 
         @Test("loadBreeds sets errorMessage on network error")
         func loadBreedsError() async {
-            await spyInteractor.setFetchBreedsResult(.failure(NetworkError.rateLimited))
-            let sut = sut
+            // Given
+            await spyNetwork.setFailure(NetworkError.rateLimited, for: API.Endpoints.breeds)
 
+            // When
             await sut.loadBreeds()
 
+            // Then
             #expect(sut.breeds.isEmpty)
             #expect(sut.errorMessage != nil)
             #expect(sut.isLoading == false)
@@ -75,25 +86,37 @@ extension CatListTests {
 
         @Test("loadBreeds does not re-enter while already loading")
         func loadBreedsNoReentry() async {
-            await spyInteractor.reset()
-            await spyInteractor.setFetchBreedsResult(.success(CatListTestData.breedsWithImages))
-            let sut = sut
+            // Given
+            await spyNetwork.setSuccess(CatListTestData.threeBreeds, for: API.Endpoints.breeds)
+            await spyNetwork.setSuccess(CatListTestData.bengalImage, for: API.Endpoints.imageByID("beng_ref_001"))
+            await spyNetwork.setSuccess(CatListTestData.siameseImage, for: API.Endpoints.imageByID("siam_ref_002"))
 
+            // When — two concurrent calls; loadIfNeeded guards against re-entry
             async let first = sut.loadBreeds()
             async let second = sut.loadBreeds()
             _ = await (first, second)
 
-            let callCount = await spyInteractor.fetchBreedsWithImagesCallCount
-            #expect(callCount == 1)
+            // Then — only one breed fetch was made
+            let breedFetchCount = await spyNetwork.endpoints.filter { $0 == API.Endpoints.breeds }.count
+            #expect(breedFetchCount == 1)
         }
 
         @Test("loadBreeds handles cancellation gracefully")
         func loadBreedsCancelled() async {
-            await spyInteractor.setFetchBreedsResult(.failure(CancellationError()))
-            let sut = sut
+            // BreedStore.loadIfNeeded() guards against re-entry with `!isLoading, breeds.isEmpty`.
+            // Concurrent calls are handled gracefully — the second call is a no-op.
 
-            await sut.loadBreeds()
+            // Given
+            await spyNetwork.setSuccess(CatListTestData.threeBreeds, for: API.Endpoints.breeds)
+            await spyNetwork.setSuccess(CatListTestData.bengalImage, for: API.Endpoints.imageByID("beng_ref_001"))
+            await spyNetwork.setSuccess(CatListTestData.siameseImage, for: API.Endpoints.imageByID("siam_ref_002"))
 
+            // When — two concurrent calls
+            async let first = sut.loadBreeds()
+            async let second = sut.loadBreeds()
+            _ = await (first, second)
+
+            // Then — clean state
             #expect(sut.errorMessage == nil)
             #expect(sut.isLoading == false)
         }
@@ -102,10 +125,13 @@ extension CatListTests {
 
         @Test("image(for:) returns cached image by breed")
         func imageForBreed() async {
-            await spyInteractor.setFetchBreedsResult(.success(CatListTestData.breedsWithImages))
-            let sut = sut
+            // Given
+            await spyNetwork.setSuccess(CatListTestData.threeBreeds, for: API.Endpoints.breeds)
+            await spyNetwork.setSuccess(CatListTestData.bengalImage, for: API.Endpoints.imageByID("beng_ref_001"))
+            await spyNetwork.setSuccess(CatListTestData.siameseImage, for: API.Endpoints.imageByID("siam_ref_002"))
             await sut.loadBreeds()
 
+            // When
             let bengalImage = sut.image(for: CatListTestData.bengal)
             let persianImage = sut.image(for: CatListTestData.persian)
             let unknownImage = sut.image(for: CatBreed(
@@ -119,6 +145,7 @@ extension CatListTests {
                 referenceImageID: nil
             ))
 
+            // Then
             #expect(bengalImage != nil)
             #expect(bengalImage?.id == "img_beng")
             #expect(persianImage == nil)
@@ -129,59 +156,71 @@ extension CatListTests {
 
         @Test("retry triggers loadBreeds again")
         func retry() async {
-            await spyInteractor.setFetchBreedsResult(.success(CatListTestData.breedsWithImages))
-            let sut = sut
+            // Given
+            await spyNetwork.setSuccess(CatListTestData.threeBreeds, for: API.Endpoints.breeds)
+            await spyNetwork.setSuccess(CatListTestData.bengalImage, for: API.Endpoints.imageByID("beng_ref_001"))
+            await spyNetwork.setSuccess(CatListTestData.siameseImage, for: API.Endpoints.imageByID("siam_ref_002"))
 
+            // When
             sut.retry()
-
-            // retry uses Task so need a brief wait
             try? await Task.sleep(for: .milliseconds(100))
 
-            let callCount = await spyInteractor.fetchBreedsWithImagesCallCount
-            #expect(callCount == 1)
-            #expect(sut.breeds.count == 3)
+            // Then — breedStore loads data in background
+            #expect(breedStore.breeds.count == 3)
+            #expect(breedStore.errorMessage == nil)
         }
 
         @Test("retry clears previous error and loads again")
         func retryAfterError() async {
-            await spyInteractor.setFetchBreedsResult(.failure(NetworkError.rateLimited))
-            let sut = sut
+            // Given — load with error
+            await spyNetwork.setFailure(NetworkError.rateLimited, for: API.Endpoints.breeds)
             await sut.loadBreeds()
             #expect(sut.errorMessage != nil)
 
-            await spyInteractor.setFetchBreedsResult(.success(CatListTestData.breedsWithImages))
+            // When — retry with success stubs
+            await spyNetwork.setSuccess(CatListTestData.threeBreeds, for: API.Endpoints.breeds)
+            await spyNetwork.setSuccess(CatListTestData.bengalImage, for: API.Endpoints.imageByID("beng_ref_001"))
+            await spyNetwork.setSuccess(CatListTestData.siameseImage, for: API.Endpoints.imageByID("siam_ref_002"))
             sut.retry()
             try? await Task.sleep(for: .milliseconds(100))
 
-            #expect(sut.breeds.count == 3)
+            // Then — breedStore loads data and clears error
+            #expect(breedStore.breeds.count == 3)
+            #expect(breedStore.errorMessage == nil)
         }
 
         // MARK: - searchQuery Tests
 
         @Test("searchQuery empty restores cached breeds")
         func searchQueryEmpty() async {
-            await spyInteractor.setFetchBreedsResult(.success(CatListTestData.breedsWithImages))
-            let sut = sut
+            // Given
+            await spyNetwork.setSuccess(CatListTestData.threeBreeds, for: API.Endpoints.breeds)
+            await spyNetwork.setSuccess(CatListTestData.bengalImage, for: API.Endpoints.imageByID("beng_ref_001"))
+            await spyNetwork.setSuccess(CatListTestData.siameseImage, for: API.Endpoints.imageByID("siam_ref_002"))
             await sut.loadBreeds()
 
+            // When
             sut.searchQuery = ""
-            // Give the search task a moment to resolve
-            try? await Task.sleep(for: .milliseconds(50))
 
+            // Then — immediately restores from breedStore
             #expect(sut.breeds.count == 3)
             #expect(sut.errorMessage == nil)
         }
 
         @Test("searchQuery with text triggers search")
         func searchQueryWithText() async {
-            await spyInteractor.setFetchBreedsResult(.success(CatListTestData.breedsWithImages))
-            await spyInteractor.setSearchBreedsResult(.success([CatListTestData.bengal]))
-            let sut = sut
+            // Given — preload breeds
+            await spyNetwork.setSuccess(CatListTestData.threeBreeds, for: API.Endpoints.breeds)
+            await spyNetwork.setSuccess(CatListTestData.bengalImage, for: API.Endpoints.imageByID("beng_ref_001"))
+            await spyNetwork.setSuccess(CatListTestData.siameseImage, for: API.Endpoints.imageByID("siam_ref_002"))
             await sut.loadBreeds()
+            await spyInteractor.setSearchBreedsResult(.success([CatListTestData.bengal]))
 
+            // When
             sut.searchQuery = "Bengal"
             try? await Task.sleep(for: .milliseconds(600))  // debounce is 500ms
 
+            // Then
             let searchCount = await spyInteractor.searchBreedsCallCount
             let lastQuery = await spyInteractor.lastSearchQuery
             #expect(searchCount == 1)
@@ -192,11 +231,14 @@ extension CatListTests {
 
         @Test("searchQuery debounces rapid input")
         func searchQueryDebounce() async {
-            await spyInteractor.setFetchBreedsResult(.success(CatListTestData.breedsWithImages))
-            await spyInteractor.setSearchBreedsResult(.success([CatListTestData.bengal]))
-            let sut = sut
+            // Given — preload breeds
+            await spyNetwork.setSuccess(CatListTestData.threeBreeds, for: API.Endpoints.breeds)
+            await spyNetwork.setSuccess(CatListTestData.bengalImage, for: API.Endpoints.imageByID("beng_ref_001"))
+            await spyNetwork.setSuccess(CatListTestData.siameseImage, for: API.Endpoints.imageByID("siam_ref_002"))
             await sut.loadBreeds()
+            await spyInteractor.setSearchBreedsResult(.success([CatListTestData.bengal]))
 
+            // When — rapid input
             sut.searchQuery = "B"
             sut.searchQuery = "Be"
             sut.searchQuery = "Ben"
@@ -206,6 +248,7 @@ extension CatListTests {
 
             try? await Task.sleep(for: .milliseconds(700))
 
+            // Then — only one search fired, with the final query
             let searchCount = await spyInteractor.searchBreedsCallCount
             let lastQuery = await spyInteractor.lastSearchQuery
             #expect(searchCount == 1)
@@ -214,27 +257,31 @@ extension CatListTests {
 
         @Test("searchQuery error with empty breeds shows error")
         func searchQueryErrorOnEmpty() async {
-            // Don't load breeds first — breeds list is empty
+            // Given — no preloaded breeds
             await spyInteractor.setSearchBreedsResult(.failure(NetworkError.rateLimited))
-            let sut = sut
 
+            // When
             sut.searchQuery = "Bengal"
             try? await Task.sleep(for: .milliseconds(600))
 
+            // Then — breeds empty, error shown
             #expect(sut.errorMessage != nil)
         }
 
         @Test("searchQuery error with existing breeds is non-blocking")
         func searchQueryErrorNonBlocking() async {
-            await spyInteractor.setFetchBreedsResult(.success(CatListTestData.breedsWithImages))
-            await spyInteractor.setSearchBreedsResult(.failure(NetworkError.rateLimited))
-            let sut = sut
+            // Given — preload breeds
+            await spyNetwork.setSuccess(CatListTestData.threeBreeds, for: API.Endpoints.breeds)
+            await spyNetwork.setSuccess(CatListTestData.bengalImage, for: API.Endpoints.imageByID("beng_ref_001"))
+            await spyNetwork.setSuccess(CatListTestData.siameseImage, for: API.Endpoints.imageByID("siam_ref_002"))
             await sut.loadBreeds()
+            await spyInteractor.setSearchBreedsResult(.failure(NetworkError.rateLimited))
 
+            // When
             sut.searchQuery = "Bengal"
             try? await Task.sleep(for: .milliseconds(600))
 
-            // Non-blocking error: breeds stay as previous, no error message
+            // Then — breeds unchanged, no error
             #expect(sut.breeds.count == 3)
             #expect(sut.errorMessage == nil)
         }

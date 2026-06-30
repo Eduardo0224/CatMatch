@@ -47,6 +47,7 @@ enum L10n {
     // MARK: - Voting
 
     enum Voting {
+        static let title = String(localized: .Voting.title)
         static let like = String(localized: .Voting.like)
         static let dislike = String(localized: .Voting.dislike)
         static let empty = String(localized: .Voting.empty)
