@@ -15,6 +15,7 @@ struct CatListView: View {
     // MARK: - Private Properties
 
     private let interactor: CatListInteractorProtocol
+    private let breedStore: any BreedStoreProtocol
 
     // MARK: - States
 
@@ -44,9 +45,13 @@ struct CatListView: View {
 
     // MARK: - Initializers
 
-    init(interactor: CatListInteractorProtocol = CatListInteractor()) {
+    init(
+        interactor: CatListInteractorProtocol = CatListInteractor(),
+        breedStore: any BreedStoreProtocol = BreedStore()
+    ) {
         self.interactor = interactor
-        _viewModel = State(initialValue: CatListViewModel(interactor: interactor))
+        self.breedStore = breedStore
+        _viewModel = State(initialValue: CatListViewModel(interactor: interactor, breedStore: breedStore))
     }
 
     // MARK: - Private Views

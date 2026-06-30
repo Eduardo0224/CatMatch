@@ -11,11 +11,27 @@ import SwiftUI
 
 struct ContentView: View {
 
+    // MARK: - States
+
+    @State private var breedStore = BreedStore()
+
     // MARK: - Body
 
     var body: some View {
-        NavigationStack {
-            CatListView()
+        TabView {
+            NavigationStack {
+                CatListView(breedStore: breedStore)
+            }
+            .tabItem {
+                Label("Breeds", systemImage: "pawprint")
+            }
+
+            NavigationStack {
+                VotingView(breedStore: breedStore)
+            }
+            .tabItem {
+                Label("Vote", systemImage: "heart")
+            }
         }
     }
 }

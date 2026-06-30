@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 import CatUI
 
 @main
@@ -23,5 +24,6 @@ struct CatMatchApp: App {
         WindowGroup {
             ContentView()
         }
+        .modelContainer(for: Vote.self)
     }
 }

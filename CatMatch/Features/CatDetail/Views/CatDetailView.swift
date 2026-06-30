@@ -55,7 +55,7 @@ struct CatDetailView: View {
 
     // MARK: - Private Views
 
-    /// Decorative blurred background — fixed height, purely for ambiance (Inku pattern).
+    /// Decorative blurred background — fixed height, purely for ambiance.
     /// GeometryReader measures the exact available width so the image can never push
     /// the ZStack wider than the screen, breaking Reason #10 (no image→layout dependency).
     private var heroBackground: some View {
@@ -99,7 +99,7 @@ struct CatDetailView: View {
             }
     }
 
-    /// Actual cat image inside ScrollView — fixed frame guarantees consistent sizing (Inku pattern).
+    /// Actual cat image inside ScrollView — fixed frame guarantees consistent sizing.
     @ViewBuilder
     private var catImageCard: some View {
         if viewModel.isLoadingImage && viewModel.image == nil {
