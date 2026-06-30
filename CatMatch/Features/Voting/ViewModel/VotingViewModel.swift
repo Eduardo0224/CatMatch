@@ -84,17 +84,34 @@ final class VotingViewModel: VotingViewModelProtocol {
 
     // MARK: - Private Functions
 
-    /// Persist a vote to the local SwiftData store.
+    /// Persist or update a vote for the given breed.
+    /// Only one vote per breed — changing from like to dislike updates the record.
     private func saveVote(breed: CatBreed, image: CatImage?, type: Vote.VoteType) {
         guard let modelContext else { return }
-        let vote = Vote(
-            breedId: breed.id,
-            breedName: breed.name,
-            imageUrl: image?.url,
-            voteType: type,
-            date: Date()
-        )
-        modelContext.insert(vote)
+
+        let breedId = breed.id
+        var descriptor = FetchDescriptor<Vote>(predicate: #Predicate { $0.breedId == breedId })
+        descriptor.fetchLimit = 1
+
+        if let existing = try? modelContext.fetch(descriptor).first {
+            // Update existing vote for this breed
+            existing.voteType = type
+            existing.date = Date()
+            if let url = image?.url {
+                existing.imageUrl = url
+            }
+        } else {
+            // Create new vote
+            let vote = Vote(
+                breedId: breedId,
+                breedName: breed.name,
+                imageUrl: image?.url,
+                voteType: type,
+                date: Date()
+            )
+            modelContext.insert(vote)
+        }
+
         if modelContext.hasChanges {
             try? modelContext.save()
         }
