@@ -10,17 +10,51 @@
 
 ---
 
-## 📖 Description
+<div align="left">
+  <img src="Assets/app-icon.png" width="220" align="left" style="margin-right: 20px;">
+  <p>
+    <strong>CatMatch</strong> is a native iOS app that lets users browse cat breeds, vote on their favorites with a Tinder-style interface, and review their voting history. Powered by <a href="https://thecatapi.com">TheCatAPI</a>.
+  </p>
+  <br clear="left"/>
+</div>
 
-**CatMatch** is a native iOS app that lets users browse cat breeds and vote on their favorites. Powered by TheCatAPI, it offers a Tinder-style voting experience where users can like or dislike breeds and review their voting history.
+---
 
-### ✨ Features (Planned)
+## ✨ Features
 
-- 🐱 **Breed Voting**: Swipe-style like/dislike on cat breed images
-- 📋 **Breed List**: Browse all cat breeds with search
-- 🔍 **Breed Detail**: View detailed breed information
-- 💾 **Local History**: Voting history persisted with SwiftData
-- 🌐 **Spanish/English**: Full localization with String Catalog
+- 🐱 **Breed Voting** — Tinder-style horizontal swipe with like/dislike and SwiftData persistence
+- 📋 **Breed List & Search** — Browse all cat breeds with search, debounce, and async images
+- 🔍 **Breed Detail** — Hero image, temperament badges, origin, weight, and life span
+- 📖 **Vote History** — UIKit collection view with filtering (All / Likes / Dislikes) and swipe-to-delete
+- 🌐 **Spanish & English** — Full localization with String Catalog
+- 🎨 **CatUI Design System** — Reusable components via SPM package
+
+---
+
+## 📸 Screenshots
+
+<table width="800" align="center">
+    <tr>
+        <th>Breed List</th>
+        <th>Breed Detail</th>
+        <th>Voting</th>
+        <th>Vote History</th>
+    </tr>
+    <tr>
+        <td width="200" align="center">
+            <img src="Assets/screenshots/catlist.png">
+        </td>
+        <td width="200" align="center">
+            <img src="Assets/screenshots/catdetail.png">
+        </td>
+        <td width="200" align="center">
+            <img src="Assets/screenshots/voting.png">
+        </td>
+        <td width="200" align="center">
+            <img src="Assets/screenshots/votehistory.png">
+        </td>
+    </tr>
+</table>
 
 ---
 
@@ -30,7 +64,7 @@ CatMatch implements **Clean Architecture** with 4 layers:
 
 ```
 ┌─────────────────────────────────────────┐
-│  Views (SwiftUI)                        │  ← UI, no business logic
+│  Views (SwiftUI + UIKit)                │  ← UI, no business logic
 ├─────────────────────────────────────────┤
 │  ViewModels (@Observable)               │  ← Presentation logic, state
 ├─────────────────────────────────────────┤
@@ -48,6 +82,7 @@ CatMatch implements **Clean Architecture** with 4 layers:
 |------------|---------|
 | **Swift** 6.0 | Language |
 | **SwiftUI** | Declarative UI |
+| **UIKit** | Collection views (VoteHistory) |
 | **Observation** | Reactive state with `@Observable` |
 | **SwiftData** | Local persistence |
 | **URLSession** | Networking with async/await |
@@ -69,7 +104,7 @@ CatMatch implements **Clean Architecture** with 4 layers:
 1. **Clone the repository**
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/Eduardo0224/CatMatch.git
 cd CatMatch
 ```
 
@@ -102,8 +137,10 @@ Press **⌘+R** to build and run.
 # Run all tests
 xcodebuild test -project CatMatch.xcodeproj \
   -scheme CatMatch \
-  -destination 'platform=iOS Simulator,name=iPhone 16 Pro'
+  -destination 'platform=iOS Simulator,name=iPhone 17'
 ```
+
+**91 tests** across CatList, CatDetail, Voting, and VoteHistory features.
 
 ---
 
@@ -120,6 +157,3 @@ xcodebuild test -project CatMatch.xcodeproj \
 ## 📄 License
 
 MIT License. See [LICENSE](LICENSE) for details.
-
----
-
